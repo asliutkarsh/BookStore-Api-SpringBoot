@@ -44,6 +44,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public void delete_book(Long id) {
+        Book book = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+        bookRepository.delete(book);
+
+        log.info("Book Deleted");
+    }
+
+    @Override
     public BookDTO get_book(Long id) {
         Book book = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
         return book.toDTO();

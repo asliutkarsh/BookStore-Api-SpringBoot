@@ -47,6 +47,19 @@ public class BookController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBook(@PathVariable Long id) {
+        try {
+            bookService.delete_book(id);
+            return ResponseEntity.ok("Book Deleted Successfully");
+        }catch (BookNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Internal Error Getting Book", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getBook(@PathVariable Long id) {
         try {
